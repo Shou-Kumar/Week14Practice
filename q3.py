@@ -1,14 +1,24 @@
 n, S = map(int, input().split())
 path = [] # faces rolled so far
 answers = [] # every complete sequence found
+
 def roll(dice_left, sum_left):
-# TODO 1: base case. If no dice are left, save a COPY of path
-# in answers when sum_left is exactly 0, then stop.
-# TODO 2: otherwise, try each face from 1 to 6:
-# choose it, explore, then undo the choice.
-# (Add "return 0" on a line here if you want to run the
-# program even when it is incomplete.)
+    
+    if sum_left == 0 and dice_left == 0:
+        answers.append(path.copy())
+        return
+    
+    for i in range(1, 7):
+        if sum_left-i >= 0:
+            path.append(i)
+            roll(dice_left-1, sum_left-i)
+            path.pop()
+
+
 roll(n, S)
+
+
 for a in answers:
-print(a)
-print("Total:", len(answers)
+    print(a)
+
+print("Total:", len(answers))
